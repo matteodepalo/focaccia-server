@@ -15,6 +15,7 @@ const pgConnection  = {
   dropSchema: false,
   logging: true,
   entities: ['/src/**/*.entity.ts', 'dist/**/*.entity.js'],
+  migrations: ['migrations/*.ts'],
   cli: {
     migrationsDir: "migrations"
   },
