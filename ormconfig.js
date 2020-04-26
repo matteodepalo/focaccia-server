@@ -18,8 +18,11 @@ const pgConnection  = {
   cli: {
     migrationsDir: "migrations"
   },
+  ssl: process.env.DATABASE_URL ? true : false,
   extra: {
-    ssl: process.env.DATABASE_URL ? true : false,
+    ssl: {
+      rejectUnauthorized: false
+    }
   }
 }
 
