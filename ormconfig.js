@@ -6,15 +6,18 @@ const config = process.env.DATABASE_URL ? parse(process.env.DATABASE_URL) : {}
 
 const pgConnection  = {
   type: "postgres",
-  host: config.host,
-  port: config.port,
+  host: config.host || 'localhost',
+  port: config.port || 5432,
   username: config.user || 'postgres',
   password: config.password || 'pw',
   database: config.database || 'focaccia_development',
-  synchronize: true,
+  synchronize: process.env.DATABASE_URL ? false : true,
   dropSchema: false,
   logging: true,
   entities: ['/src/**/*.entity.ts', 'dist/**/*.entity.js'],
+  cli: {
+    migrationsDir: "migrations"
+  },
   extra: {
     ssl: process.env.DATABASE_URL ? true : false,
   }
