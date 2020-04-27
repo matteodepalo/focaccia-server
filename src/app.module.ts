@@ -14,7 +14,7 @@ import { join } from 'path';
       typePaths: ['src/schema.gql'],
       definitions: {
         path: join(process.cwd(), '../focaccia-client/graphql.ts'),
-        outputAs: 'class',
+        outputAs: 'class'
       },
     }),
     RecipesModule
