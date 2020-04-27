@@ -13,8 +13,7 @@ import { join } from 'path';
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       typePaths: ['src/schema.gql'],
       definitions: {
-        path: join(process.cwd(), '../focaccia-client/graphql.ts'),
-        outputAs: 'class'
+        path: join(process.cwd(), '../focaccia-client/graphql.ts')
       },
     }),
     RecipesModule
