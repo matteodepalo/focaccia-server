@@ -2,7 +2,8 @@ const parse = require('pg-connection-string').parse;
 const env = require('dotenv')
 env.config()
 
-const config = process.env.DATABASE_URL ? parse(process.env.DATABASE_URL) : {}
+const isProd = process.env.DATABASE_URL !== undefined
+const config = isProd ? parse(process.env.DATABASE_URL) : {}
 
 const pgConnection  = {
   type: "postgres",
@@ -11,20 +12,25 @@ const pgConnection  = {
   username: config.user || 'postgres',
   password: config.password || 'pw',
   database: config.database || 'focaccia_development',
-  synchronize: process.env.DATABASE_URL ? false : true,
+  synchronize: !isProd,
   dropSchema: false,
   logging: true,
-  entities: ['/src/**/*.entity.ts', 'dist/**/*.entity.js'],
-  migrations: ['migrations/*.ts'],
+  entities: ['dist/**/*.entity.js'],
+  migrations: ['dist/migrations/*.js'],
   cli: {
-    migrationsDir: "migrations"
+    migrationsDir: "src/migrations"
   },
-  ssl: process.env.DATABASE_URL ? true : false,
-  extra: {
-    ssl: {
-      rejectUnauthorized: false
+  ssl: isProd
+}
+
+if (isProd) {
+  Object.assign(pgConnection, {
+    extra: {
+      ssl: {
+        rejectUnauthorized: false
+      }
     }
-  }
+  })
 }
 
 module.exports = pgConnection;
