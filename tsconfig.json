@@ -12,13 +12,11 @@
     "incremental": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
-    "alwaysStrict": true,
-    "strictNullChecks": true,
-    "strictPropertyInitialization": true,
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noImplicitReturns": true
+    "noImplicitReturns": true,
+    "strict": true
   },
   "exclude": ["node_modules", "dist"]
 }
