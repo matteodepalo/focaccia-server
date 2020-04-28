@@ -10,11 +10,7 @@ import { join } from 'path';
       autoLoadEntities: true
     }),
     GraphQLModule.forRoot({
-      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-      typePaths: ['src/schema.gql'],
-      definitions: {
-        path: join(process.cwd(), '../focaccia-client/graphql.ts')
-      },
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql')
     }),
     RecipesModule
   ],
