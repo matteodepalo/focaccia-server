@@ -12,7 +12,7 @@ export class RecipesService {
     return this.recipesRepository.find()
   }
 
-  findOne(id: number) {
+  findOne(id: RecipeEntity['id']) {
     return this.recipesRepository.findOne(id)
   }
 
@@ -24,5 +24,9 @@ export class RecipesService {
     await this.recipesRepository.save(recipe)
 
     return recipe
+  }
+
+  async removeRecipe(id: RecipeEntity['id']) {
+    return this.recipesRepository.delete(id)
   }
 }

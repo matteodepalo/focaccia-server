@@ -15,6 +15,7 @@ type Query {
 
 type Mutation {
   createRecipe(data: CreateRecipeInput!): Recipe!
+  removeRecipe(id: Int!): Recipe!
 }
 
 input CreateRecipeInput {

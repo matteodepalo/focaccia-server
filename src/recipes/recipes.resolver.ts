@@ -8,17 +8,23 @@ export class RecipesResolver {
     constructor (private readonly recipesService: RecipesService) {}
 
     @Query(_returns => Recipe, { name: 'recipe' })
-    async getRecipe(@Args('id', { type: () => Int }) id: number) {
+    async getRecipe(@Args('id', { type: () => Int }) id: number): Promise<Recipe | undefined> {
       return this.recipesService.findOne(id)
     }
 
     @Query(_returns => [Recipe], { name: 'recipes' })
-    async getRecipes() {
+    async getRecipes(): Promise<Recipe[]> {
       return this.recipesService.findAll()
     }
 
     @Mutation(() => Recipe)
-    async createRecipe(@Args('data') data: CreateRecipeInput) {
+    async createRecipe(@Args('data') data: CreateRecipeInput): Promise<Recipe> {
       return this.recipesService.createRecipe(data)
+    }
+
+    @Mutation(() => Recipe)
+    async removeRecipe(@Args('id', { type: () => Int }) id: number): Promise<Recipe> {
+      await this.recipesService.removeRecipe(id)
+      return { id }
     }
 }
