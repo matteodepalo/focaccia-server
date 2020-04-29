@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { RecipeEntity } from './recipe.entity'
-import { CreateRecipeArgs } from './dto/recipe.args';
+import { CreateRecipeInput } from './dto/recipe.input';
 
 @Injectable()
 export class RecipesService {
@@ -16,10 +16,10 @@ export class RecipesService {
     return this.recipesRepository.findOne(id)
   }
 
-  async createRecipe(args: CreateRecipeArgs) {
+  async createRecipe(data: CreateRecipeInput) {
     let recipe = new RecipeEntity()
-    recipe.title = args.title
-    recipe.description = args.description
+    recipe.title = data.title
+    recipe.description = data.description
 
     await this.recipesRepository.save(recipe)
 

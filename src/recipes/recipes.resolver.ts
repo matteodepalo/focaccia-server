@@ -1,7 +1,7 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql'
 import { RecipesService } from './recipes.service'
 import { Recipe } from './recipe.model'
-import { CreateRecipeArgs } from './dto/recipe.args';
+import { CreateRecipeInput } from './dto/recipe.input';
 
 @Resolver(() => Recipe)
 export class RecipesResolver {
@@ -18,7 +18,7 @@ export class RecipesResolver {
     }
 
     @Mutation(() => Recipe)
-    async createRecipe(@Args() args: CreateRecipeArgs) {
-      return this.recipesService.createRecipe(args)
+    async createRecipe(@Args('createRecipeData') data: CreateRecipeInput) {
+      return this.recipesService.createRecipe(data)
     }
 }
