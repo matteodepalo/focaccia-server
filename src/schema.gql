@@ -19,6 +19,6 @@ type Mutation {
 }
 
 input CreateRecipeInput {
-  title: String
-  description: String
+  title: String!
+  description: String!
 }

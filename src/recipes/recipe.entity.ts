@@ -5,9 +5,9 @@ export class RecipeEntity {
   @PrimaryGeneratedColumn()
   id!: number
 
-  @Column()
-  title?: string
+  @Column({ nullable: false })
+  title!: string
 
-  @Column()
-  description?: string
+  @Column({ nullable: false })
+  description!: string
 }
