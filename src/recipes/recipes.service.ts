@@ -18,8 +18,7 @@ export class RecipesService {
 
   async createRecipe(data: CreateRecipeInput) {
     let recipe = new RecipeEntity()
-    recipe.title = data.title
-    recipe.description = data.description
+    recipe.name = data.name
 
     await this.recipesRepository.save(recipe)
 

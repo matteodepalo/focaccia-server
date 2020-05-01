@@ -4,6 +4,7 @@ import { Field, ObjectType, Int } from '@nestjs/graphql'
 export class Recipe {
   @Field(_type => Int)
   id!: number
-  title?: string
-  description?: string
+  createdAt!: Date
+  updatedAt!: Date
+  name!: string
 }

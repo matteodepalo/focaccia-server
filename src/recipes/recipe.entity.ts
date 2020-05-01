@@ -1,13 +1,11 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
+import { BaseEntity } from 'src/base.entity'
 
 @Entity('recipes')
-export class RecipeEntity {
+export class RecipeEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number
 
   @Column({ nullable: false })
-  title!: string
-
-  @Column({ nullable: false })
-  description!: string
+  name!: string
 }

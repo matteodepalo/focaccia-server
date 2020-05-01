@@ -24,7 +24,8 @@ export class RecipesResolver {
 
     @Mutation(() => Recipe)
     async removeRecipe(@Args('id', { type: () => Int }) id: number): Promise<Recipe> {
+      const recipe = await this.recipesService.findOne(id)
       await this.recipesService.removeRecipe(id)
-      return { id }
+      return recipe!
     }
 }
