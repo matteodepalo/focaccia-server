@@ -6,18 +6,18 @@ import { Injectable, UnauthorizedException } from '@nestjs/common'
 export class CookieStrategy extends PassportStrategy(Strategy) {
   constructor () {
     super({
-      cookieName: 'idToken',
+      cookieName: 'auth',
       signed: true
     });
   }
 
-  async validate(token: string): Promise<string> {
-    const user = token
+  async validate(token: { idToken: string}): Promise<string> {
+    const idToken = token?.idToken
 
-    if (!user) {
+    if (!idToken) {
       throw new UnauthorizedException()
     }
 
-    return user
+    return idToken
   }
 }

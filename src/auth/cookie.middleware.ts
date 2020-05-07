@@ -10,7 +10,8 @@ export function cookie(secret: string) {
 
     const cookies = req.cookies ?? req.headers.cookie
     const unsealed = cookies['a0:session'] ? await Iron.unseal(cookies['a0:session'], secret, Iron.defaults) : {}
-    req.signedCookies = unsealed
+    const signedCookies = req.signedCookies ?? {}
+    req.signedCookies = { ...signedCookies, auth: unsealed }
     next()
   }
 }
