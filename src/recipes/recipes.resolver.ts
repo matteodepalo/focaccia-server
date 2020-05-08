@@ -2,16 +2,7 @@ import { Resolver, Query, Mutation, Args, Int, GqlExecutionContext } from '@nest
 import { RecipesService } from './recipes.service'
 import { Recipe } from './recipe.model'
 import { CreateRecipeInput } from './dto/recipe.input'
-import { ExecutionContext, UseGuards, Injectable, createParamDecorator } from '@nestjs/common'
-import { AuthGuard } from '@nestjs/passport'
-
-@Injectable()
-export class GqlAuthGuard extends AuthGuard('cookie') {
-  getRequest(context: ExecutionContext) {
-    const ctx = GqlExecutionContext.create(context)
-    return ctx.getContext().req
-  }
-}
+import { ExecutionContext, createParamDecorator } from '@nestjs/common'
 
 export const CurrentUser = createParamDecorator(
   (_data: unknown, context: ExecutionContext) => {
@@ -29,7 +20,6 @@ export class RecipesResolver {
     return this.recipesService.findOne(id)
   }
 
-  @UseGuards(GqlAuthGuard)
   @Query(_returns => [Recipe], { name: 'recipes' })
   async getRecipes(): Promise<Recipe[]> {
     return this.recipesService.findAll()

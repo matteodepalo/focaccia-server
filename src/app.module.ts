@@ -5,9 +5,7 @@ import { RecipesModule } from './recipes/recipes.module'
 import { join } from 'path'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import * as Joi from '@hapi/joi'
-import { AuthModule } from './auth/auth.module'
-import { cookie as authCookie } from './auth/cookie.middleware'
-import cookieParser = require('cookie-parser')
+import { jwtMiddleware } from './auth/auth.middleware'
 
 @Module({
   imports: [
@@ -18,19 +16,19 @@ import cookieParser = require('cookie-parser')
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       context: ({ req }) => ({ req }),
       cors: {
-        origin: ['http://localhost:3000', 'https://focaccia-client.now.sh'],
-        credentials: true
+        origin: ['http://localhost:3000', 'https://focaccia-client.now.sh']
       }
     }),
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
         SESSION_COOKIE_SECRET: Joi.string().required(),
-        PORT: Joi.number()
+        PORT: Joi.number(),
+        AUTH0_DOMAIN: Joi.string().required(),
+        GRAPHQL_URL: Joi.string().required()
       }),
     }),
-    RecipesModule,
-    AuthModule
+    RecipesModule
   ],
   controllers: [],
   providers: [],
@@ -38,9 +36,9 @@ import cookieParser = require('cookie-parser')
 export class AppModule {
   constructor (private readonly configService: ConfigService) {}
 
-  configure(consumer: MiddlewareConsumer) {
+  public configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(cookieParser(), authCookie(this.configService.get('SESSION_COOKIE_SECRET')!))
-      .forRoutes('/graphql');
+      .apply(jwtMiddleware(this.configService.get('AUTH0_DOMAIN')!, this.configService.get('GRAPHQL_URL')!))
+      .forRoutes('/graphql')
   }
 }
