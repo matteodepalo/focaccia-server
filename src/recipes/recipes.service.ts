@@ -8,17 +8,24 @@ import { CreateRecipeInput } from './dto/recipe.input';
 export class RecipesService {
   constructor(@InjectRepository(RecipeEntity) private recipesRepository: Repository<RecipeEntity>) {}
 
-  findAll() {
-    return this.recipesRepository.find()
+  findAll(userId: RecipeEntity['userId']) {
+    return this.recipesRepository
+      .createQueryBuilder('recipes')
+      .where("recipes.userId = :userId", { userId })
+      .getMany()
   }
 
-  findOne(id: RecipeEntity['id']) {
-    return this.recipesRepository.findOne(id)
+  findOne(id: RecipeEntity['id'], userId: RecipeEntity['userId']) {
+    return this.recipesRepository
+      .createQueryBuilder('recipes')
+      .where("recipes.userId = :userId AND recipes.id = :id", { id, userId })
+      .getOne()
   }
 
-  async createRecipe(data: CreateRecipeInput) {
+  async createRecipe(data: CreateRecipeInput, userId: RecipeEntity['userId']) {
     let recipe = new RecipeEntity()
     recipe.name = data.name
+    recipe.userId = userId
 
     await this.recipesRepository.save(recipe)
 

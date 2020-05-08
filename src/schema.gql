@@ -4,6 +4,7 @@
 
 type Recipe {
   id: Int!
+  userId: String!
   createdAt: DateTime!
   updatedAt: DateTime!
   name: String!

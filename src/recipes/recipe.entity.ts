@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn, Index } from 'typeorm'
 import { BaseEntity } from 'src/base.entity'
 
 @Entity('recipes')
@@ -8,4 +8,8 @@ export class RecipeEntity extends BaseEntity {
 
   @Column({ nullable: false })
   name!: string
+
+  @Index()
+  @Column({ nullable: false })
+  userId!: string
 }

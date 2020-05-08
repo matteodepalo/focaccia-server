@@ -22,7 +22,6 @@ import { jwtMiddleware } from './auth/auth.middleware'
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
-        SESSION_COOKIE_SECRET: Joi.string().required(),
         PORT: Joi.number(),
         AUTH0_DOMAIN: Joi.string().required(),
         GRAPHQL_URL: Joi.string().required()
