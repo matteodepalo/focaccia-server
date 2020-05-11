@@ -12,7 +12,7 @@ const pgConnection  = {
   username: config.user || 'postgres',
   password: config.password || 'pw',
   database: config.database || 'focaccia_development',
-  synchronize: !isProd,
+  synchronize: false,
   dropSchema: false,
   logging: true,
   entities: ['dist/**/*.entity.js'],

@@ -8,4 +8,7 @@ export class Recipe {
   createdAt!: Date
   updatedAt!: Date
   name!: string
+  yeastType?: string
+  @Field(_type => Int)
+  yeastWeight?: number
 }

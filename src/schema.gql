@@ -4,10 +4,12 @@
 
 type Recipe {
   id: Int!
+  yeastWeight: Int
   userId: String!
   createdAt: DateTime!
   updatedAt: DateTime!
   name: String!
+  yeastType: String
 }
 
 """
@@ -26,5 +28,7 @@ type Mutation {
 }
 
 input CreateRecipeInput {
+  yeastWeight: Int
   name: String!
+  yeastType: String
 }

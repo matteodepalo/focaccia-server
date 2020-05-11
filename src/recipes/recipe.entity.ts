@@ -6,10 +6,16 @@ export class RecipeEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number
 
-  @Column({ nullable: false })
+  @Column()
   name!: string
 
   @Index()
-  @Column({ nullable: false })
+  @Column()
   userId!: string
+
+  @Column({ nullable: true })
+  yeastType?: string
+
+  @Column({ nullable: true })
+  yeastWeight?: number
 }
