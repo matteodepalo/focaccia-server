@@ -26,6 +26,7 @@ export class RecipesService {
     let recipe = new RecipeEntity()
     Object.assign(recipe, data)
     recipe.userId = userId
+    // recipe.ingredients = data.ingredients
 
     await this.recipesRepository.save(recipe)
 

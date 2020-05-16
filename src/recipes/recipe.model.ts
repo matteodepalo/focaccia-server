@@ -1,14 +1,12 @@
-import { Field, ObjectType, Int } from '@nestjs/graphql'
+import { ObjectType, Field } from '@nestjs/graphql'
+import { BaseModel } from 'src/base.model'
+import { Ingredient } from 'src/ingredients/ingredient.model'
 
 @ObjectType()
-export class Recipe {
-  @Field(_type => Int)
-  id!: number
+export class Recipe extends BaseModel {
   userId!: string
-  createdAt!: Date
-  updatedAt!: Date
   name!: string
-  yeastType?: string
-  @Field(_type => Int)
-  yeastWeight?: number
+
+  @Field(_type => [Ingredient])
+  ingredients!: Ingredient[]
 }
