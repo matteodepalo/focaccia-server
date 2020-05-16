@@ -12,6 +12,7 @@ export class RecipesService {
     return this.recipesRepository
       .createQueryBuilder('recipes')
       .where("recipes.userId = :userId", { userId })
+      .leftJoinAndSelect("recipes.ingredients", "ingredient")
       .getMany()
   }
 
@@ -19,6 +20,7 @@ export class RecipesService {
     return this.recipesRepository
       .createQueryBuilder('recipes')
       .where("recipes.userId = :userId AND recipes.id = :id", { id, userId })
+      .leftJoinAndSelect("recipes.ingredients", "ingredient")
       .getOne()
   }
 
