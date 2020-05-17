@@ -11,6 +11,10 @@ export class RecipeEntity extends BaseEntity {
   @Column()
   userId!: string
 
-  @OneToMany(_type => IngredientEntity, ingredient => ingredient.recipe)
+  @OneToMany(_type => IngredientEntity, ingredient => ingredient.recipe, {
+    cascade: true,
+    onDelete: 'CASCADE',
+    eager: true
+  })
   ingredients!: IngredientEntity[]
 }
