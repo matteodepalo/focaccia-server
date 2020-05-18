@@ -6,10 +6,10 @@ type Ingredient {
   id: Int!
   createdAt: DateTime!
   updatedAt: DateTime!
-  type: IngredientType!
-  group: IngredientGroup!
   weight: Float!
   name: String!
+  type: IngredientType!
+  group: IngredientGroup!
 }
 
 """
@@ -34,9 +34,9 @@ type Recipe {
   id: Int!
   createdAt: DateTime!
   updatedAt: DateTime!
-  ingredients: [Ingredient!]!
   userId: String!
   name: String!
+  ingredients: [Ingredient!]!
 }
 
 type Query {
