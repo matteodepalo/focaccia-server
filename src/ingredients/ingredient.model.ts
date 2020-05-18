@@ -12,7 +12,7 @@ registerEnumType(IngredientGroup, {
 
 @ObjectType()
 export class Ingredient extends BaseModel {
-  name!: string
+  name?: string
   type!: IngredientType
   group!: IngredientGroup
   @Field(_type => Float)

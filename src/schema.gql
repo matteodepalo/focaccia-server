@@ -7,7 +7,7 @@ type Ingredient {
   createdAt: DateTime!
   updatedAt: DateTime!
   weight: Float!
-  name: String!
+  name: String
   type: IngredientType!
   group: IngredientGroup!
 }
@@ -56,7 +56,7 @@ input CreateRecipeInput {
 
 input IngredientInput {
   weight: Float!
-  name: String!
+  name: String
   type: String!
   group: String!
 }

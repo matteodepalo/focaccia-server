@@ -1,13 +1,5 @@
-import { InputType, Field, Float } from '@nestjs/graphql'
-
-@InputType()
-class IngredientInput {
-  name!: string
-  type!: string
-  group!: string
-  @Field(_type => Float)
-  weight!: number
-}
+import { InputType, Field } from '@nestjs/graphql'
+import { IngredientInput } from 'src/ingredients/dto/ingredient.input'
 
 @InputType()
 export class CreateRecipeInput {
