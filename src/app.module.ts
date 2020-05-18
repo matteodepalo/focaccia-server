@@ -16,7 +16,7 @@ import { jwtMiddleware } from './auth/auth.middleware'
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       context: ({ req }) => ({ req }),
       cors: {
-        origin: ['http://localhost:3000', 'https://focaccia-client.now.sh']
+        origin: ['http://localhost:3000', 'https://focaccia-client.now.sh', 'https://focaccia.app']
       }
     }),
     ConfigModule.forRoot({
