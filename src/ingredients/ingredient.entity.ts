@@ -3,16 +3,16 @@ import { BaseEntity } from 'src/base.entity'
 import { RecipeEntity } from 'src/recipes/recipe.entity'
 
 export enum IngredientGroup {
-  Starter = 'starter',
-  Dough = 'dough'
+  starter = 'starter',
+  dough = 'dough'
 }
 
 export enum IngredientType {
-  Yeast = 'yeast',
-  Water = 'water',
-  Salt = 'salt',
-  Flour = 'flour',
-  Other = 'other'
+  yeast = 'yeast',
+  water = 'water',
+  salt = 'salt',
+  flour = 'flour',
+  other = 'other'
 }
 
 @Entity('ingredients')
@@ -35,6 +35,6 @@ export class IngredientEntity extends BaseEntity {
   })
   group!: IngredientGroup
 
-  @ManyToOne(_type => RecipeEntity, recipe => recipe.ingredients)
+  @ManyToOne(_type => RecipeEntity, recipe => recipe.ingredients, { onDelete: 'CASCADE' })
   recipe!: RecipeEntity
 }

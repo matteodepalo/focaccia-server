@@ -13,7 +13,6 @@ export class RecipeEntity extends BaseEntity {
 
   @OneToMany(_type => IngredientEntity, ingredient => ingredient.recipe, {
     cascade: true,
-    onDelete: 'CASCADE',
     eager: true
   })
   ingredients!: IngredientEntity[]
