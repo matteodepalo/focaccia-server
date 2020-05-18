@@ -1,7 +1,7 @@
 import { Field, ObjectType, Int } from '@nestjs/graphql'
 
 @ObjectType()
-export class BaseModel {
+export abstract class BaseModel {
   @Field(_type => Int)
   id!: number
   createdAt!: Date
