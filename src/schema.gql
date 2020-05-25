@@ -46,6 +46,7 @@ type Query {
 
 type Mutation {
   createRecipe(data: CreateRecipeInput!): Recipe!
+  updateRecipe(data: UpdateRecipeInput!): Recipe!
   removeRecipe(id: Int!): Recipe!
 }
 
@@ -59,4 +60,10 @@ input IngredientInput {
   name: String
   type: String!
   group: String!
+}
+
+input UpdateRecipeInput {
+  ingredients: [IngredientInput!]!
+  name: String!
+  id: Float!
 }

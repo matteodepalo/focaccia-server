@@ -1,7 +1,8 @@
 import { Resolver, Query, Mutation, Args, Int, GqlExecutionContext } from '@nestjs/graphql'
 import { RecipesService } from './recipes.service'
 import { Recipe } from './recipe.model'
-import { CreateRecipeInput } from './dto/recipe.input'
+import { CreateRecipeInput } from './dto/create-recipe.input'
+import { UpdateRecipeInput } from './dto/update-recipe.input'
 import { ExecutionContext, createParamDecorator } from '@nestjs/common'
 
 export const CurrentUser = createParamDecorator(
@@ -32,6 +33,11 @@ export class RecipesResolver {
   @Mutation(() => Recipe)
   async createRecipe(@CurrentUser() user: CurrentUser, @Args('data') data: CreateRecipeInput): Promise<Recipe> {
     return this.recipesService.createRecipe(data, user.sub)
+  }
+
+  @Mutation(() => Recipe)
+  async updateRecipe(@CurrentUser() user: CurrentUser, @Args('data') data: UpdateRecipeInput): Promise<Recipe> {
+    return this.recipesService.updateRecipe(data, user.sub)
   }
 
   @Mutation(() => Recipe)
