@@ -56,6 +56,7 @@ input CreateRecipeInput {
 }
 
 input IngredientInput {
+  id: Int
   weight: Float!
   name: String
   type: String!
@@ -65,5 +66,5 @@ input IngredientInput {
 input UpdateRecipeInput {
   ingredients: [IngredientInput!]!
   name: String!
-  id: Float!
+  id: Int!
 }
