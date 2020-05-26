@@ -44,10 +44,6 @@ export class RecipesService {
     const recipe = await this.findOne(data.id, userId)
     Object.assign(recipe, data)
 
-    data.ingredients.map(ingredientInput => {
-      return Object.assign(new IngredientEntity(), ingredientInput)
-    })
-
     await this.recipesRepository.save(recipe!)
 
     return recipe!
