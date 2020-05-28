@@ -59,8 +59,8 @@ input IngredientInput {
   id: Int
   weight: Float!
   name: String
-  type: String!
-  group: String!
+  type: IngredientType!
+  group: IngredientGroup!
 }
 
 input UpdateRecipeInput {
