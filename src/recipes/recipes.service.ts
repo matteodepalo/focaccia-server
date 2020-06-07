@@ -5,6 +5,7 @@ import { RecipeEntity } from './recipe.entity'
 import { CreateRecipeInput } from './dto/create-recipe.input'
 import { IngredientEntity } from 'src/ingredients/ingredient.entity'
 import { UpdateRecipeInput } from './dto/update-recipe.input'
+import { StepEntity } from 'src/steps/step.entity'
 
 @Injectable()
 export class RecipesService {
@@ -15,6 +16,7 @@ export class RecipesService {
       .createQueryBuilder('recipes')
       .where("recipes.userId = :userId", { userId })
       .leftJoinAndSelect("recipes.ingredients", "ingredient")
+      .leftJoinAndSelect("recipes.steps", "step")
       .getMany()
   }
 
@@ -23,6 +25,7 @@ export class RecipesService {
       .createQueryBuilder('recipes')
       .where("recipes.userId = :userId AND recipes.id = :id", { id, userId })
       .leftJoinAndSelect("recipes.ingredients", "ingredient")
+      .leftJoinAndSelect("recipes.steps", "step")
       .getOne()
   }
 
@@ -33,6 +36,10 @@ export class RecipesService {
 
     data.ingredients.map(ingredientInput => {
       return Object.assign(new IngredientEntity(), ingredientInput)
+    })
+
+    data.steps.map(stepInput => {
+      return Object.assign(new StepEntity(), stepInput)
     })
 
     await this.recipesRepository.save(recipe)

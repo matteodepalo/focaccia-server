@@ -1,6 +1,7 @@
 import { Entity, Column, Index, OneToMany } from 'typeorm'
 import { BaseEntity } from 'src/base.entity'
 import { IngredientEntity } from 'src/ingredients/ingredient.entity';
+import { StepEntity } from 'src/steps/step.entity';
 
 @Entity('recipes')
 export class RecipeEntity extends BaseEntity {
@@ -16,4 +17,10 @@ export class RecipeEntity extends BaseEntity {
     eager: true
   })
   ingredients!: IngredientEntity[]
+
+  @OneToMany(_type => StepEntity, step => step.recipe, {
+    cascade: true,
+    eager: true
+  })
+  steps!: StepEntity[]
 }
