@@ -1,11 +1,12 @@
-import { InputType, Field } from '@nestjs/graphql'
+import { InputType, Field, Int } from '@nestjs/graphql'
 import { IngredientInput } from 'src/ingredients/dto/ingredient.input'
 import { StepInput } from 'src/steps/dto/step.input'
 
-//TODO unify with update
-
 @InputType()
-export class CreateRecipeInput {
+export class RecipeInput {
+  @Field(_type => Int)
+  id?: number
+
   name!: string
 
   @Field(_type => [IngredientInput])

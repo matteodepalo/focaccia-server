@@ -2,9 +2,8 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { RecipeEntity } from './recipe.entity'
-import { CreateRecipeInput } from './dto/create-recipe.input'
+import { RecipeInput } from './dto/recipe.input'
 import { IngredientEntity } from 'src/ingredients/ingredient.entity'
-import { UpdateRecipeInput } from './dto/update-recipe.input'
 import { StepEntity } from 'src/steps/step.entity'
 
 @Injectable()
@@ -29,7 +28,7 @@ export class RecipesService {
       .getOne()
   }
 
-  async createRecipe(data: CreateRecipeInput, userId: RecipeEntity['userId']) {
+  async createRecipe(data: RecipeInput, userId: RecipeEntity['userId']) {
     let recipe = new RecipeEntity()
     Object.assign(recipe, data)
     recipe.userId = userId
@@ -47,8 +46,8 @@ export class RecipesService {
     return recipe
   }
 
-  async updateRecipe(data: UpdateRecipeInput, userId: RecipeEntity['userId']) {
-    const recipe = await this.findOne(data.id, userId)
+  async updateRecipe(data: RecipeInput, userId: RecipeEntity['userId']) {
+    const recipe = await this.findOne(data.id!, userId)
     Object.assign(recipe, data)
 
     await this.recipesRepository.save(recipe!)

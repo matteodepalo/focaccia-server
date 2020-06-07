@@ -55,12 +55,13 @@ type Query {
 }
 
 type Mutation {
-  createRecipe(data: CreateRecipeInput!): Recipe!
-  updateRecipe(data: UpdateRecipeInput!): Recipe!
+  createRecipe(data: RecipeInput!): Recipe!
+  updateRecipe(data: RecipeInput!): Recipe!
   removeRecipe(id: Int!): Recipe!
 }
 
-input CreateRecipeInput {
+input RecipeInput {
+  id: Int
   ingredients: [IngredientInput!]!
   steps: [StepInput!]!
   name: String!
@@ -79,11 +80,4 @@ input StepInput {
   position: Int!
   duration: Int
   description: String!
-}
-
-input UpdateRecipeInput {
-  ingredients: [IngredientInput!]!
-  steps: [StepInput!]!
-  name: String!
-  id: Int!
 }
