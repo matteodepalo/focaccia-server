@@ -2,8 +2,8 @@ const parse = require('pg-connection-string').parse;
 const env = require('dotenv')
 env.config()
 
-const isProd = process.env.DATABASE_URL !== undefined
-const config = isProd ? parse(process.env.DATABASE_URL) : {}
+const isProd = process.env.NODE_ENV === 'production'
+const config = typeof process.env.DATABASE_URL !== 'undefined' ? parse(process.env.DATABASE_URL) : {}
 
 const pgConnection  = {
   type: "postgres",
