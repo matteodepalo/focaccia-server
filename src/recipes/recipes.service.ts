@@ -23,7 +23,7 @@ export class RecipesService {
       .getMany()
   }
 
-  findOne(userId: RecipeEntity['userId'], id?: RecipeEntity['id'], token?: RecipeEntity['token']) {
+  findOne(userId?: RecipeEntity['userId'], id?: RecipeEntity['id'], token?: RecipeEntity['token']) {
     let query
 
     if (id) {

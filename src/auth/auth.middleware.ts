@@ -15,6 +15,7 @@ export function jwtMiddleware(domain: string, audience: string) {
       audience: audience,
       issuer: `https://${domain}/`,
       algorithm: 'RS256',
+      credentialsRequired: false
     })(req, res, err => {
       if (err) {
         const status = err.status || 500
