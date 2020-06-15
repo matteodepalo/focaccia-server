@@ -3,6 +3,7 @@ import { RecipesService } from './recipes.service'
 import { Recipe } from './recipe.model'
 import { RecipeInput } from './dto/recipe.input'
 import { ExecutionContext, createParamDecorator } from '@nestjs/common'
+import { GetRecipeArgs } from './dto/get-recipe.args'
 
 export const CurrentUser = createParamDecorator(
   (_data: unknown, context: ExecutionContext) => {
@@ -20,8 +21,8 @@ export class RecipesResolver {
   constructor (private readonly recipesService: RecipesService) {}
 
   @Query(_returns => Recipe, { name: 'recipe' })
-  async getRecipe(@CurrentUser() user: CurrentUser, @Args('id', { type: () => Int }) id: number): Promise<Recipe | undefined> {
-    return this.recipesService.findOne(id, user.sub)
+  async getRecipe(@CurrentUser() user: CurrentUser, @Args() args: GetRecipeArgs): Promise<Recipe | undefined> {
+    return this.recipesService.findOne(user.sub, args.id, args.token)
   }
 
   @Query(_returns => [Recipe], { name: 'recipes' })
@@ -41,7 +42,7 @@ export class RecipesResolver {
 
   @Mutation(() => Recipe)
   async removeRecipe(@CurrentUser() user: CurrentUser, @Args('id', { type: () => Int }) id: number): Promise<Recipe> {
-    const recipe = await this.recipesService.findOne(id, user.sub)
+    const recipe = await this.recipesService.findOne(user.sub, id)
     await this.recipesService.removeRecipe(recipe!.id)
     return recipe!
   }

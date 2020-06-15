@@ -10,22 +10,31 @@ import { StepEntity } from 'src/steps/step.entity'
 export class RecipesService {
   constructor(@InjectRepository(RecipeEntity) private recipesRepository: Repository<RecipeEntity>) {}
 
-  findAll(userId: RecipeEntity['userId']) {
+  private baseQuery() {
     return this.recipesRepository
       .createQueryBuilder('recipes')
-      .where("recipes.userId = :userId", { userId })
       .leftJoinAndSelect("recipes.ingredients", "ingredient")
       .leftJoinAndSelect("recipes.steps", "step")
+  }
+
+  findAll(userId: RecipeEntity['userId']) {
+    return this.baseQuery()
+      .where("recipes.userId = :userId", { userId })
       .getMany()
   }
 
-  findOne(id: RecipeEntity['id'], userId: RecipeEntity['userId']) {
-    return this.recipesRepository
-      .createQueryBuilder('recipes')
-      .where("recipes.userId = :userId AND recipes.id = :id", { id, userId })
-      .leftJoinAndSelect("recipes.ingredients", "ingredient")
-      .leftJoinAndSelect("recipes.steps", "step")
-      .getOne()
+  findOne(userId: RecipeEntity['userId'], id?: RecipeEntity['id'], token?: RecipeEntity['token']) {
+    let query
+
+    if (id) {
+      query = this.baseQuery()
+        .where("recipes.userId = :userId AND recipes.id = :id", { id, userId })
+    } else if (token) {
+      query = this.baseQuery()
+        .where("recipes.token = :token", { token })
+    }
+
+    return query?.getOne()
   }
 
   async createRecipe(data: RecipeInput, userId: RecipeEntity['userId']) {
@@ -47,7 +56,7 @@ export class RecipesService {
   }
 
   async updateRecipe(data: RecipeInput, userId: RecipeEntity['userId']) {
-    const recipe = await this.findOne(data.id!, userId)
+    const recipe = await this.findOne(userId, data.id!)
     Object.assign(recipe, data)
 
     await this.recipesRepository.save(recipe!)

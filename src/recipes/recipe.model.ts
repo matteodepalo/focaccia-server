@@ -9,4 +9,5 @@ export class Recipe extends BaseModel {
   name!: string
   ingredients!: Ingredient[]
   steps!: Step[]
+  token!: string
 }

@@ -47,10 +47,11 @@ type Recipe {
   name: String!
   ingredients: [Ingredient!]!
   steps: [Step!]!
+  token: String!
 }
 
 type Query {
-  recipe(id: Int!): Recipe!
+  recipe(id: Int, token: String): Recipe!
   recipes: [Recipe!]!
 }
 

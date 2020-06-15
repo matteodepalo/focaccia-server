@@ -1,4 +1,4 @@
-import { Entity, Column, Index, OneToMany } from 'typeorm'
+import { Entity, Column, Index, OneToMany, Generated } from 'typeorm'
 import { BaseEntity } from 'src/base.entity'
 import { IngredientEntity } from 'src/ingredients/ingredient.entity';
 import { StepEntity } from 'src/steps/step.entity';
@@ -11,6 +11,11 @@ export class RecipeEntity extends BaseEntity {
   @Index()
   @Column()
   userId!: string
+
+  @Index()
+  @Column()
+  @Generated("uuid")
+  token!: string;
 
   @OneToMany(_type => IngredientEntity, ingredient => ingredient.recipe, {
     cascade: true,
