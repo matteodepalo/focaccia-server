@@ -10,7 +10,7 @@ export class StepEntity extends BaseEntity {
   @Column({ type: 'int' })
   position!: number
 
-  @Column({ type: 'int', nullable: true })
+  @Column({ type: 'int', nullable: true, default: null })
   duration?: number
 
   @ManyToOne(_type => RecipeEntity, recipe => recipe.steps, { onDelete: 'CASCADE' })
