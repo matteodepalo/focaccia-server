@@ -22,13 +22,13 @@ export class RecipesResolver {
   constructor (private readonly recipesService: RecipesService) {}
 
   @UseGuards(GqlUserGuard)
-  @Query(_returns => Recipe, { name: 'recipe' })
+  @Query(() => Recipe, { name: 'recipe' })
   async getRecipe(@CurrentUser() user: User | null, @Args() args: GetRecipeArgs): Promise<Recipe | undefined> {
     return this.recipesService.findOne(user?.sub, args.id, args.token)
   }
 
   @UseGuards(GqlAuthGuard)
-  @Query(_returns => [Recipe], { name: 'recipes' })
+  @Query(() => [Recipe], { name: 'recipes' })
   async getRecipes(@CurrentUser() user: User): Promise<Recipe[]> {
     return this.recipesService.findAll(user.sub)
   }

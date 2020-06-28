@@ -2,7 +2,6 @@ import { Injectable, ExecutionContext } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { GqlExecutionContext } from "@nestjs/graphql";
 
-
 // Token is required
 @Injectable()
 export class GqlAuthGuard extends AuthGuard('jwt') {
