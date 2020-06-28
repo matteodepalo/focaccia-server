@@ -24,7 +24,8 @@ import { jwtMiddleware } from './auth/auth.middleware'
       validationSchema: Joi.object({
         PORT: Joi.number(),
         AUTH0_DOMAIN: Joi.string().required(),
-        GRAPHQL_URL: Joi.string().required()
+        GRAPHQL_URL: Joi.string().required(),
+        SENTRY_DSN: Joi.string()
       }),
     }),
     RecipesModule
