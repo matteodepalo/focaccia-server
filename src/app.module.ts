@@ -1,11 +1,11 @@
-import { Module, MiddlewareConsumer } from '@nestjs/common'
+import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { GraphQLModule } from '@nestjs/graphql'
 import { RecipesModule } from './recipes/recipes.module'
 import { join } from 'path'
-import { ConfigModule, ConfigService } from '@nestjs/config'
+import { ConfigModule } from '@nestjs/config'
 import * as Joi from '@hapi/joi'
-import { jwtMiddleware } from './auth/auth.middleware'
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -28,17 +28,11 @@ import { jwtMiddleware } from './auth/auth.middleware'
         SENTRY_DSN: Joi.string()
       }),
     }),
-    RecipesModule
+    RecipesModule,
+    AuthModule
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule {
-  constructor (private readonly configService: ConfigService) {}
 
-  public configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(jwtMiddleware(this.configService.get('AUTH0_DOMAIN')!, this.configService.get('GRAPHQL_URL')!))
-      .forRoutes('/graphql')
-  }
-}
+export class AppModule {}
